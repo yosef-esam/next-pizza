@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Translations } from "@/types/translations";
-import { Extra, ExtraIngredients, ProductSizes, Size } from "@prisma/client";
+import { Extra, Size } from "@/types/prisma";
 import { Plus, Trash2 } from "lucide-react";
 import {
   Select,
@@ -15,10 +15,11 @@ import {
 } from "@/components/ui/select";
 import { useParams } from "next/navigation";
 import { Languages } from "@/constants/enums";
+import { ProductSizes, ExtraIngredients } from "@prisma/client";
 
 export enum ItemOptionsKeys {
-  SIZES,
-  EXTRAS,
+  SIZES = "sizes",
+  EXTRAS = "extras",
 }
 
 const sizesNames = [

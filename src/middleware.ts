@@ -19,7 +19,8 @@ function getLocale(request: NextRequest): string | undefined {
   try {
     locale = matchLocale(languages, locales, i18n.defaultLocale);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  } catch (error: any) {
+  } catch (error: unknown) {
+    console.error('Middleware error:', error);
     locale = i18n.defaultLocale;
   }
   return locale;

@@ -110,6 +110,7 @@ function EditUserForm({
           <div className="flex items-center gap-2 my-4">
             <Checkbox
               name="admin"
+              type="checkbox"
               checked={isAdmin}
               onClick={() => setIsAdmin(!isAdmin)}
               label="Admin"

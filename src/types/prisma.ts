@@ -108,4 +108,56 @@ export interface Session {
   userId: string;
   expires: Date;
   user?: User;
+}  export interface OrderProduct {
+  id: string;
+  quantity: number;
+  order?: Order;
+  orderId: string;
+  user?: User;
+  userId?: string;
+  product?: Product;
+  productId: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  image?: string;
+  phone?: string;
+  streetAddress?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+  role: UserRole;
+  createdAt: Date;
+  updatedAt: Date;
+  orders?: OrderProduct[];
+  accounts?: Account[];
+  sessions?: Session[];
+}
+
+export interface Account {
+  id: string;
+  userId: string;
+  type: string;
+  provider: string;
+  providerAccountId: string;
+  refresh_token?: string;
+  access_token?: string;
+  expires_at?: number;
+  token_type?: string;
+  scope?: string;
+  id_token?: string;
+  session_state?: string;
+  user?: User;
+}
+
+export interface Session {
+  id: string;
+  sessionToken: string;
+  userId: string;
+  expires: Date;
+  user?: User;
 } 

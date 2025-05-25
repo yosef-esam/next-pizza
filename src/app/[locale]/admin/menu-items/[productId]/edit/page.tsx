@@ -5,12 +5,15 @@ import { redirect } from "next/navigation";
 import Form from "../../_components/Form";
 import { getCategories } from "@/server/db/categories";
 import getTrans from "@/lib/translation";
+import { ProductWithRelations } from "@/types/product";
+import { Product } from "@prisma/client";
 
 export async function generateStaticParams() {
-  const products = await getProducts();
+  const products: Product[] = await getProducts();
 
-  return products.map((product) => ({ productId: product.id }));
+  return products.map((product: Product) => ({ productId: product.id }));
 }
+
 async function EditProductPage({
   params,
 }: {

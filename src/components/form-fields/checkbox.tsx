@@ -1,28 +1,28 @@
 import { IFormField } from "@/types/app";
 import { Label } from "../ui/label";
 import { Checkbox as ShadcnCheckbox } from "../ui/checkbox";
+import { ValidationErrors } from "@/validations/auth";
 
-interface Props {
+interface Props extends IFormField {
+  error?: ValidationErrors;
+  checked?: boolean;
   onClick?: () => void;
-  checked: boolean;
-  label?: IFormField["label"];
-  name: IFormField["name"];
 }
 
-const Checkbox = ({ label, name, checked, onClick }: Props) => {
+const Checkbox = ({ label, name, error, checked, onClick }: Props) => {
   return (
     <div className="text-accent flex items-center gap-2">
       <ShadcnCheckbox
-        type="button"
         id={name}
         name={name}
-        onClick={onClick}
         checked={checked}
+        onClick={onClick}
       />
-      {label && (
-        <Label htmlFor={name} className="text-sm font-normal">
-          {label}
-        </Label>
+      <Label htmlFor={name} className="text-sm font-normal">
+        {label}
+      </Label>
+      {error?.[name] && (
+        <p className="text-sm text-destructive">{error[name]}</p>
       )}
     </div>
   );

@@ -3,9 +3,10 @@ import Menu from '@/components/menu';
 import { getCurrentLocale } from '@/lib/getCurrentLocale';
 import getTrans from '@/lib/translation';
 import { getBestSellers } from '@/server/db/products';
+import { ProductWithRelations } from '@/types/product';
 
 async function BestSellers() {
-  const bestSellers = await getBestSellers(3);
+  const bestSellers = (await getBestSellers(3)) as ProductWithRelations[];
   const locale = await getCurrentLocale();
   const { home } = await getTrans(locale);
   const { bestSeller } = home;

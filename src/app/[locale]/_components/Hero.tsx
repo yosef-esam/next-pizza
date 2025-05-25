@@ -3,7 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Languages, Routes } from "@/constants/enums";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import getTrans from "@/lib/translation";
-import { ArrowRightCircle, ImportIcon } from "lucide-react";
+import { ArrowRightCircle } from "lucide-react";
 import Image from "next/image";
 
 async function Hero() {

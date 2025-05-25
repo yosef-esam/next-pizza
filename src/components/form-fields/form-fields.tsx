@@ -7,10 +7,11 @@ import { ValidationErrors } from "@/validations/auth";
 
 interface Props extends IFormField {
   error: ValidationErrors;
+  checked?: boolean;
 }
 
 const FormFields = (props: Props) => {
-  const { type } = props;
+  const { type, checked = false } = props;
   const renderField = (): React.ReactNode => {
     if (type === InputTypes.EMAIL || type === InputTypes.TEXT) {
       return <TextField {...props} />;
@@ -21,7 +22,7 @@ const FormFields = (props: Props) => {
     }
 
     if (type === InputTypes.CHECKBOX) {
-      return <Checkbox {...props} />;
+      return <Checkbox {...props} checked={checked} />;
     }
 
     return <TextField {...props} />;

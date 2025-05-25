@@ -2,7 +2,6 @@ import { Routes } from "@/constants/enums";
 import MainHeading from "../main-heading";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import getTrans from "@/lib/translation";
-import Image from "next/image";
 
 async function About() {
   const locale = await getCurrentLocale();

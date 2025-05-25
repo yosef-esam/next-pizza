@@ -2,7 +2,6 @@ import MainHeading from "@/components/main-heading";
 import { Routes } from "@/constants/enums";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import getTrans from "@/lib/translation";
-import Image from "next/image";
 
 const Contact = async () => {
   const locale = await getCurrentLocale();

@@ -8,7 +8,7 @@ import getTrans from "@/lib/translation";
 import { ProductWithRelations } from "@/types/product";
 
 export async function generateStaticParams() {
-  const products = await getProducts();
+  const products = (await getProducts()) as { id: string }[];
   return products.map((product) => ({ productId: product.id }));
 }
 

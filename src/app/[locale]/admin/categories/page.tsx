@@ -3,6 +3,7 @@ import getTrans from "@/lib/translation";
 import { getCategories } from "@/server/db/categories";
 import Form from "./_components/Form";
 import CategoryItem from "./_components/CategoryItem";
+import { Category } from "@prisma/client";
 
 async function CategoriesPage({
   params,
@@ -21,7 +22,7 @@ async function CategoriesPage({
             <Form translations={translations} />
             {categories.length > 0 ? (
               <ul className="flex flex-col gap-4">
-                {categories.map((category) => (
+                {categories.map((category: Category) => (
                   <CategoryItem key={category.id} category={category} />
                 ))}
               </ul>

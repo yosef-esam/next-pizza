@@ -10,7 +10,7 @@ import { CameraIcon } from "lucide-react";
 import Image from "next/image";
 import { useActionState, useEffect, useState } from "react";
 import SelectCategory from "./SelectCategory";
-import { Category, Extra, Size } from "@prisma/client";
+import { Category, Extra, Size } from "@/types/prisma";
 import {
   Accordion,
   AccordionContent,

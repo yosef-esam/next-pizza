@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Languages } from "@/constants/enums";
 import { Translations } from "@/types/translations";
-import { Category } from "@prisma/client";
+import { Category } from "@/types/prisma";
 import { EditIcon } from "lucide-react";
 import { ValidationError } from "next/dist/compiled/amphtml-validator";
 import { useParams } from "next/navigation";

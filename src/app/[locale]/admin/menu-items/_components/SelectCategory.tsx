@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category } from "@prisma/client";
+import { Category } from "@/types/prisma";
 import { Translations } from "@/types/translations";
 import { Label } from "@/components/ui/label";
 import { Languages } from "@/constants/enums";

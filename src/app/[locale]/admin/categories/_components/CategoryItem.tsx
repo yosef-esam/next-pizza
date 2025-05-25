@@ -1,4 +1,4 @@
-import { Category } from "@prisma/client";
+import { Category } from "@/types/prisma";
 import EditCategory from "./EditCategory";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import getTrans from "@/lib/translation";

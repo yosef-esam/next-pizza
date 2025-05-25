@@ -5,13 +5,13 @@ import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import { db } from "@/lib/prisma";
 import getTrans from "@/lib/translation";
 import { addProductSchema, updateProductSchema } from "@/validations/product";
-import { ExtraIngredients, ProductSizes } from "@prisma/client";
+import { Extra, ExtraIngredients, ProductSizes, Size } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const addProduct = async (
   args: {
     categoryId: string;
-    options: { sizes: { name: ProductSizes; price: number }[]; extras: { name: ExtraIngredients; price: number }[] };
+    options: { sizes: Partial<Size>[]; extras: Partial<Extra>[] };
   },
   prevState: unknown,
   formData: FormData
@@ -46,7 +46,7 @@ export const addProduct = async (
           sizes: {
             createMany: {
               data: args.options.sizes.map((size) => ({
-                name: size.name,
+                name: size.name as ProductSizes,
                 price: Number(size.price),
               })),
             },
@@ -54,7 +54,7 @@ export const addProduct = async (
           extras: {
             createMany: {
               data: args.options.extras.map((extra) => ({
-                name: extra.name,
+                name: extra.name as ExtraIngredients,
                 price: Number(extra.price),
               })),
             },
@@ -82,7 +82,7 @@ export const addProduct = async (
 export const updateProduct = async (
   args: {
     productId: string;
-    options: { sizes: { name: ProductSizes; price: number }[]; extras: { name: ExtraIngredients; price: number }[] };
+    options: { sizes: Partial<Size>[]; extras: Partial<Extra>[] };
   },
   prevState: unknown,
   formData: FormData
@@ -134,7 +134,7 @@ export const updateProduct = async (
     await db.size.createMany({
       data: args.options.sizes.map((size) => ({
         productId: args.productId,
-        name: size.name,
+        name: size.name as ProductSizes,
         price: Number(size.price),
       })),
     });
@@ -146,7 +146,7 @@ export const updateProduct = async (
     await db.extra.createMany({
       data: args.options.extras.map((extra) => ({
         productId: args.productId,
-        name: extra.name,
+        name: extra.name as ExtraIngredients,
         price: Number(extra.price),
       })),
     });

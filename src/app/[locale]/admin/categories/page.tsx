@@ -3,7 +3,6 @@ import getTrans from "@/lib/translation";
 import { getCategories } from "@/server/db/categories";
 import Form from "./_components/Form";
 import CategoryItem from "./_components/CategoryItem";
-import { Category } from "@/types/prisma";
 
 async function CategoriesPage({
   params,
@@ -11,7 +10,7 @@ async function CategoriesPage({
   params: Promise<{ locale: Locale }>;
 }) {
   const locale = (await params).locale;
-  const categories: Category[] = await getCategories();
+  const categories = await getCategories();
   const translations = await getTrans(locale);
 
   return (
@@ -22,7 +21,7 @@ async function CategoriesPage({
             <Form translations={translations} />
             {categories.length > 0 ? (
               <ul className="flex flex-col gap-4">
-                {categories.map((category: Category) => (
+                {categories.map((category) => (
                   <CategoryItem key={category.id} category={category} />
                 ))}
               </ul>

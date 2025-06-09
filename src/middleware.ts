@@ -18,8 +18,7 @@ function getLocale(request: NextRequest): string | undefined {
 
   try {
     locale = matchLocale(languages, locales, i18n.defaultLocale);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  } catch (error: any) {
+  } catch (error) {
     locale = i18n.defaultLocale;
   }
   return locale;
@@ -27,6 +26,11 @@ function getLocale(request: NextRequest): string | undefined {
 
 export default withAuth(
   async function middleware(request: NextRequest) {
+    // Skip auth checks during build time
+    if (process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build') {
+      return NextResponse.next();
+    }
+
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-url", request.url);
 

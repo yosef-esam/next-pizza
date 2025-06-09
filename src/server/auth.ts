@@ -98,12 +98,11 @@ export const authOptions: NextAuthOptions = {
         if (res.status === 200 && res.user) {
           return res.user;
         } else {
-          throw new Error(
-            JSON.stringify({
-              validationError: res.error,
-              responseError: res.message,
-            })
-          );
+          const errorResponse = {
+            validationError: res.error || {},
+            responseError: res.message || "Authentication failed"
+          };
+          throw new Error(JSON.stringify(errorResponse));
         }
       },
     }),

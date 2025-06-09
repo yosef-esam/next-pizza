@@ -39,12 +39,21 @@ function Form({ translations }: { translations: Translations }) {
         redirect: false,
       });
       if (res?.error) {
-        const validationError = JSON.parse(res?.error).validationError;
-        setError(validationError);
-        const responseError = JSON.parse(res?.error).responseError;
-        if (responseError) {
+        try {
+          const errorData = JSON.parse(res.error);
+          if (errorData.validationError && Object.keys(errorData.validationError).length > 0) {
+            setError(errorData.validationError);
+          }
+          if (errorData.responseError) {
+            toast({
+              title: errorData.responseError,
+              className: "text-destructive",
+            });
+          }
+        } catch (e) {
+          // If error is not JSON, treat it as a direct error message
           toast({
-            title: responseError,
+            title: res.error,
             className: "text-destructive",
           });
         }

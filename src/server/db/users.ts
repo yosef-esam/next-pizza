@@ -14,6 +14,6 @@ export const getUser = cache(
     const user = db.user.findUnique({ where: { id: userId } });
     return user;
   },
-  [`user-${crypto.randomUUID()}`],
+  ["user"],
   { revalidate: 3600 }
 );

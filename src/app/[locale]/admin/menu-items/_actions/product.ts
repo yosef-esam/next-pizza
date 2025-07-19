@@ -101,11 +101,14 @@ export const updateProduct = async (
   }
   const data = result.data;
   const basePrice = Number(data.basePrice);
-  const imageFile = data.image as File;
-  const imageUrl = Boolean(imageFile.size)
-    ? await getImageUrl(imageFile)
-    : undefined;
+  let imageUrl: string | undefined = undefined;
 
+const imageFile = data.image as File;
+
+// Check if it's a File object with content
+if (imageFile && typeof imageFile === "object" && imageFile.size > 0) {
+  imageUrl = await getImageUrl(imageFile);
+}
   const product = await db.product.findUnique({
     where: { id: args.productId },
   });
@@ -169,23 +172,50 @@ export const updateProduct = async (
   }
 };
 const getImageUrl = async (imageFile: File) => {
+  console.log(
+    "Client: getImageUrl function called with imageFile:",
+    imageFile.name,
+    "Type:",
+    imageFile.type
+  );
+
   const formData = new FormData();
   formData.append("file", imageFile);
   formData.append("pathName", "product_images");
+  console.log("Client: FormData created with file and pathName.");
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/upload`,
-      {
-        method: "POST",
-        body: formData,
-      }
+    const uploadUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/upload`;
+    console.log("Client: Sending request to URL:", uploadUrl);
+
+    const response = await fetch(uploadUrl, {
+      method: "POST",
+      body: formData,
+    });
+
+    console.log(
+      "Client: Received response from API route. Status:",
+      response.status
     );
-    console.log(response);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Client: API response not OK. Error data:", errorData);
+      throw new Error(
+        `Upload failed: ${errorData.error || response.statusText}`
+      );
+    }
+
     const image = (await response.json()) as { url: string };
+    console.log(
+      "Client: Successfully parsed JSON response. Image URL:",
+      image.url
+    );
     return image.url;
   } catch (error) {
-    console.error("Error uploading file to Cloudinary:", error);
+    console.error("Client Error: Error uploading file to Cloudinary:", error);
+    // You might want to re-throw the error or handle it gracefully in your UI
+    throw error;
   }
 };
 

@@ -1,20 +1,31 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import {  Routes } from '@/constants/enums';
 import { getTotalAmount } from '@/lib/cart';
 import { formatCurrency } from '@/lib/formatters';
 import { selectCartItems } from '@/redux/features/cart/cartSlice';
 import { useAppSelector } from '@/redux/hooks';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 
 function CheckoutForm() {
+  const router = useRouter();
   const cart = useAppSelector(selectCartItems);
   const totalAmount = getTotalAmount(cart);
+  const {locale} = useParams();
+  
+if (cart === undefined) {
+  return <p>Loading...</p>;
+}
+console.log(`/${locale}/${Routes.CHECKOUT}`)
+if (cart.length === 0) {
+  return <p>Your cart is empty.</p>;
+}
   return (
-    cart &&
-    cart.length > 0 && (
+  (
       <div className='grid gap-6 bg-gray-100 rounded-md p-4'>
         <h2 className='text-2xl text-black font-semibold'>Checkout</h2>
         <form>
@@ -76,7 +87,12 @@ function CheckoutForm() {
                 />
               </div>
             </div>
-            <Button className='h-10'>Pay {formatCurrency(totalAmount)}</Button>
+            <Link
+              href={`/${locale}/${Routes.CHECKOUT}?amount=${totalAmount}`}
+              className='h-10 bg-primary text-white rounded-md flex items-center justify-center'
+            >
+              Pay {formatCurrency(totalAmount)}
+            </Link>
           </div>
         </form>
       </div>

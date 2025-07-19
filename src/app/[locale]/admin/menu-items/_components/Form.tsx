@@ -35,6 +35,7 @@ function Form({
   categories: Category[];
   product?: ProductWithRelations;
 }) {
+  console.log(product)
   const [selectedImage, setSelectedImage] = useState(
     product ? product.image : ""
   );

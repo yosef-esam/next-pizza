@@ -91,6 +91,7 @@
     "passwordMismatch": "كلمة المرور غير متطابقة"
   },
   "messages": {
+    "invalidFields": "يجب أن يكون كل الحقول موجودة",
     "userNotFound": "المستخدم غير موجود",
     "incorrectPassword": "كلمة المرور غير صحيحة",
     "loginSuccessful": "تم تسجيل الدخول بنجاح",

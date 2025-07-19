@@ -91,6 +91,7 @@
     "passwordMismatch": "Password do not match"
   },
   "messages": {
+    "invalidFields": "All fields are required",
     "userNotFound": "User not found",
     "incorrectPassword": "Incorrect password",
     "loginSuccessful": "Login successful",

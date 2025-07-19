@@ -51,6 +51,7 @@ export default withAuth(
       return NextResponse.redirect(
         new URL(`/${locale}${pathname}`, request.url)
       );
+      console.log(pathname)
     }
     const currentLocale = request.url.split("/")[3] as Locale;
     const isAuth = await getToken({ req: request });

@@ -29,6 +29,7 @@ async function NewProductPage() {
       <section className="section-gap">
         <div className="container">
           <Form translations={translations} categories={categories} />
+          
         </div>
       </section>
     </main>

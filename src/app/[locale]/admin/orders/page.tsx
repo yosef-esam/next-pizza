@@ -1,16 +1,39 @@
-import React from "react";
+"use client"
 
-async function OrdersPage() {
-  const res = await fetch(`/api/order`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // cache: "no-store", // Optional: if using app router and want fresh data
-  });
+import React, { useState, useEffect } from "react";
 
-  const data = await res.json();
-  const orders = data.orders;
+function OrdersPage() {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch("/api/order", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // cache: "no-store", // Optional: if using app router and want fresh data
+        });
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch orders: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setOrders(data.orders);
+        setLoading(false);
+      } catch (err) {
+        setError(err as Error);
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">

@@ -41,7 +41,7 @@ function CheckOutForm({amount,session}:{amount:number,session:Session| null;}) {
         handleError(SubmitError);
         return
       }
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/create-intent`, {
+      const res = await fetch("/api/create-intent", {
         method: "POST",
         body: JSON.stringify({ amount }),
         headers: { "Content-Type": "application/json" },
@@ -94,7 +94,7 @@ function CheckOutForm({amount,session}:{amount:number,session:Session| null;}) {
           })),
         };
       
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/order`, {
+        const res = await fetch("/api/order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(orderData),
@@ -110,7 +110,7 @@ function CheckOutForm({amount,session}:{amount:number,session:Session| null;}) {
         }
       };
       const sendEmail=async()=>{
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/send`,{
+        await fetch("/api/send",{
          method:"POST",
           body:JSON.stringify({
             name: session?.user.name,

@@ -185,7 +185,7 @@ const getImageUrl = async (imageFile: File) => {
   console.log("Client: FormData created with file and pathName.");
 
   try {
-    const uploadUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/upload`;
+    const uploadUrl = "/api/upload";
     console.log("Client: Sending request to URL:", uploadUrl);
 
     const response = await fetch(uploadUrl, {

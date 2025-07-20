@@ -1,7 +1,7 @@
 import React from "react";
 
 async function OrdersPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/order`, {
+  const res = await fetch(`/api/order`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

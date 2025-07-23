@@ -13,5 +13,7 @@ export async function createOrder(orderData: CreateOrderInput): Promise<Order> {
 }
 
 export async function findAllOrders(): Promise<Order[]> {
-  return db.order.findMany();
+  return db.order.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
 } 

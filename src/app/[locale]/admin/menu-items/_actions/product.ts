@@ -7,6 +7,7 @@ import getTrans from "@/lib/translation";
 import { addProductSchema, updateProductSchema } from "@/validations/product";
 import { Extra, ExtraIngredients, ProductSizes, Size } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 export const addProduct = async (
   args: {
@@ -185,7 +186,7 @@ const getImageUrl = async (imageFile: File) => {
   console.log("Client: FormData created with file and pathName.");
 
   try {
-    const uploadUrl = "/api/upload";
+    const uploadUrl = `${(await headers()).get("origin")}/api/upload`;
     console.log("Client: Sending request to URL:", uploadUrl);
 
     const response = await fetch(uploadUrl, {

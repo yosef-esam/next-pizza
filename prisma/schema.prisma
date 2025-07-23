@@ -85,9 +85,10 @@ model Product {
   sizes       Size[]
   extras      Extra[]
   orders      OrderProduct[]
-  category    Category       @relation(fields: [categoryId], references: [id])
+  category    Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId  String
 }
+
 
 model Size {
   id        String       @id @default(cuid())
@@ -137,7 +138,7 @@ model OrderProduct {
   orderId   String
   user      User?   @relation(fields: [userId], references: [id])
   userId    String?
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 }
 

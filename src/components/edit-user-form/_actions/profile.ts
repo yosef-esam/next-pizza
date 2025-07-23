@@ -6,6 +6,7 @@ import getTrans from "@/lib/translation";
 import { updateProfileSchema } from "@/validations/profile";
 import { UserRole } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 export const updateProfile = async (
   isAdmin: boolean,
@@ -86,10 +87,10 @@ const getImageUrl = async (imageFile: File) => {
   const formData = new FormData();
   formData.append("file", imageFile);
   formData.append("pathName", "product_images");
-  console.log("Client: FormData created with file and pathName.");
+   console.log("Client: FormData created with file and pathName.");
 
   try {
-    const uploadUrl = "/api/upload";
+    const uploadUrl = `${(await headers()).get("origin")}/api/upload`;
     console.log("Client: Sending request to URL:", uploadUrl);
 
     const response = await fetch(uploadUrl, {

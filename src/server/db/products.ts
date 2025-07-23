@@ -57,10 +57,10 @@ export const getProducts = cache(
 );
 
 export const getProduct = cache(
-  (id: string) => {
+  (productId: string) => {
     const product = db.product.findUnique({
       where: {
-        id,
+        id: productId,
       },
       include: {
         sizes: true,
